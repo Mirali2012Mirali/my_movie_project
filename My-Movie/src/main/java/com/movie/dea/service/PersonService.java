@@ -7,13 +7,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
-import java.util.Locale;
 
 @Service
 public class PersonService {
     private final PersonRepository personRepository;
 
-    public personService (PersonRepository personRepository){
+    public PersonService(PersonRepository personRepository){
         this.personRepository = personRepository;
     }
 
@@ -33,8 +32,8 @@ public class PersonService {
     public Person updatedPerson(@PathVariable Long id, @RequestBody Person updatedPerson) {
        return personRepository.findById(id)
                        .map(existing ->  {
-        existing.setName(updatePerson.getName());
-        existing.setAge(updatePerson.getAge());
+        existing.setName(updatedPerson.getName());
+        existing.setAge(updatedPerson.getAge());
         return personRepository.save(existing);
     })
         .orElseThrow(() -> new RuntimeException("No such a person with following ID: " + id));

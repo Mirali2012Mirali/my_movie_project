@@ -79,6 +79,6 @@ public class Movie {
 
     public void setGenre(String genre) {this.genre = genre;}
 
-    @OneToOne(mappedBy = "movies", cascade = CascadeType.ALL)
-    private MovieDetails movieDetails;
+//    @OneToOne(mappedBy = "movies", cascade = CascadeType.ALL)
+//    private MovieDetails movieDetails;
 }

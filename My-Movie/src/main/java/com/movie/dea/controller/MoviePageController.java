@@ -32,13 +32,13 @@ public class MoviePageController {
         }
 
         @GetMapping("/new")
-        public String form(Model model){
+        public String form (Model model){
         model.addAttribute("movie", new Movie());
         return "movies/new";
         }
 
         @PostMapping
-        public String save(@Valid @ModelAttribute Movie movie, BindingResult bindingResult) {
+        public String save (@Valid @ModelAttribute Movie movie, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "movies/form";
         }
@@ -49,8 +49,16 @@ public class MoviePageController {
         }
 
         @GetMapping("/{id}/edit")
-        public String edit(@PathVariable Integer id,Model model){
-        model.addAttribute("movie", movieService.getMovie(id));
+        public String edit (@PathVariable Integer id,Model model){
+        Movie movie = movieService.getMovie(id);
+        MovieForm form = new MovieForm();
+        form.setId(movie.getId());
+        form.setTitle(movie.getTitle());
+        form.setGenre(movie.getGenre());
+        form.setRating(movie.getRating());
+        form.setDuration(movie.getDuration());
+        form.setReleaseDate(movie.getReleaseDate());
+        model.addAttribute("movieForm", form);
         return "movies/edit";
         }
 

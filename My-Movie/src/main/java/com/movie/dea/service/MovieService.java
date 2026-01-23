@@ -2,6 +2,7 @@ package com.movie.dea.service;
 
 
 import com.movie.dea.entity.Movie;
+import com.movie.dea.exception.MovieNotFoundException;
 import com.movie.dea.repository.MovieRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -50,7 +51,7 @@ public class MovieService {
 
     public Movie getMovie(@PathVariable Integer id) {
         return movieRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Not Found"));
+                .orElseThrow(() -> new MovieNotFoundException("No such a movie in db:  " + id));
     }
 
     public Page<Movie> getMoviesByPage(@RequestParam int page, @RequestParam int size) {
@@ -88,6 +89,6 @@ public class MovieService {
             return movieRepository.findByGenre(genre);
         }
 
-        return movieRepository.findAll();
+        return movieRepository.findAll(sort);
     }
     }

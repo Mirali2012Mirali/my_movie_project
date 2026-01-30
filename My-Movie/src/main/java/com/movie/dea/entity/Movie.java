@@ -18,8 +18,11 @@ public class Movie {
     private String title;
     @NotBlank(message = "Genre is required!")
     private String genre;
+    @NotNull(message = "don't leave empty!")
     private LocalDate releaseDate;
+    @NotNull(message = "don't leave empty!")
     private Double rating;
+    @NotBlank(message = "Duration is required!")
     private String duration;
 //    private Pageable pageable;
 

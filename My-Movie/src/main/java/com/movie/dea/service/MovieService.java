@@ -91,6 +91,6 @@ public class MovieService {
             return movieRepository.findByGenre(genre);
         }
 
-        return movieRepository.findAll(sort);
+        return movieRepository.findAll();
     }
     }

@@ -11,32 +11,21 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MovieForm {
+public class MovieDTO {
 
     private Integer id;
 
-    @NotBlank(message = "Title is required!")
-    @Size(min = 5, max = 100, message = "Title must be 5-100 chars.")
     private String title;
-    @NotBlank(message = "Genre is required!")
-    @Size(min = 5, max = 100, message = "Genre must be 5-100 chars.")
+
     private String genre;
 
-
-   @NotNull(message = "don't leave empty")
     private LocalDate releaseDate;
-
-    @NotNull(message = "don't leave empty")
-    @DecimalMin(value = "1.0", message = "Rating must be at least 0")
-    @DecimalMax(value = "10.0", message = "Rating must be at most 10")
 
     private Double rating;
 
-    @NotBlank(message = "Duration is required!")
-    @Size(min = 2, max = 3, message = "Genre must be 5-100 chars")
     private String duration;
 
-    private LocalDate directorName;
+    private String directorName;
 
     public Integer getId() {
         return id;
@@ -86,11 +75,11 @@ public class MovieForm {
         this.duration = duration;
     }
 
-    public LocalDate getDirectorName() {
+    public String getDirectorName() {
         return directorName;
     }
 
-    public void setDirectorName(LocalDate directorName) {
+    public void setDirectorName(String directorName) {
         this.directorName = directorName;
     }
 }

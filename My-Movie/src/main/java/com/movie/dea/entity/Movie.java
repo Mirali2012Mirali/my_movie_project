@@ -26,6 +26,9 @@ public class Movie {
     private String duration;
 //    private Pageable pageable;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "director_id")
+    private Director director;
 
     public Movie() {
 

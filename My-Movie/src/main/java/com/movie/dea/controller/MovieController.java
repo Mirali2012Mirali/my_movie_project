@@ -20,13 +20,13 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @GetMapping("/pagination")
-    public Page<Movie> getPagination(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size
-    ) {
-        return movieService.getMoviesByPage(page, size);
-    }
+//    @GetMapping("/pagination")
+//    public Page<Movie> getPagination(
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "5") int size
+//    ) {
+//        return movieService.getMoviesByPage(page, size);
+//    }
 
 
     @GetMapping("/all")

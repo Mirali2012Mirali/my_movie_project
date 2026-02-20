@@ -1,6 +1,7 @@
 package com.movie.dea.service;
 
 
+import com.movie.dea.dto.MovieDTO;
 import com.movie.dea.dto.MovieForm;
 import com.movie.dea.entity.Director;
 import com.movie.dea.entity.Movie;
@@ -13,14 +14,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.lang.classfile.attribute.ModuleOpenInfo;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 public class MovieService {
@@ -83,7 +79,7 @@ public class MovieService {
         movieRepository.save(movie);
     }
 
-    public Page<Movie> searchPaginated(
+    public Page<MovieDTO> searchPaginated(
             String title,
             String genre,
             int page,

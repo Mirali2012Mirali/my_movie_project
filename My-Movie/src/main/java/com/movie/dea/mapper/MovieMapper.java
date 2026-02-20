@@ -21,7 +21,7 @@ public class MovieMapper {
 
         if (movie.getDirector() != null) {
             dto.setDirectorId(movie.getId());
-            dto.setDirectorName(movie.getDirector().getName);
+            dto.setDirectorName(movie.getDirector().getName());
         }
         return dto;
     }

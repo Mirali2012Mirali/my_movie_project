@@ -181,7 +181,7 @@
 
 <a href="/movies/new">Add Movie</a>
 
-<form method="get" th:action="@{/movies">
+<form method="get" th:action="@{/movies}">
     <a th:href="@{/movies(
     sortBy='title',
     direction=${sortBy == 'title' and direction == 'asc' ? 'desc' : 'asc'}

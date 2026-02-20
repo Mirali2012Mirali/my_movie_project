@@ -1,6 +1,7 @@
 package com.movie.dea.controller;
 
 
+import com.movie.dea.dto.MovieDTO;
 import com.movie.dea.dto.MovieForm;
 import com.movie.dea.entity.Movie;
 import com.movie.dea.service.MovieService;
@@ -49,7 +50,7 @@ public class MoviePageController {
                 ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 
-        Page<Movie> movies = movieService.searchPaginated(
+        Page<MovieDTO> movies = movieService.searchPaginated(
                 title,
                 genre,
                 page,

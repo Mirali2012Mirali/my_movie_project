@@ -27,6 +27,16 @@ public class MovieDTO {
 
     private String directorName;
 
+    private Integer directorId;
+
+    public Integer getDirectorId() {
+        return directorId;
+    }
+
+    public void setDirectorId(Integer directorId) {
+        this.directorId = directorId;
+    }
+
     public Integer getId() {
         return id;
     }

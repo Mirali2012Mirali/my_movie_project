@@ -1,6 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:th="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Movies</title>
 </head>
@@ -224,9 +225,9 @@
         <td th:text="${movie.duration}"></td>
 
         <td>
-            <a sec:autorize="hasRole('ADMIN')" th:href="@{/movies/{id}/edit(id=${movie.id})}">Edit</a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/movies/{id}/edit(id=${movie.id})}">Edit</a>
 
-            <form th:action="@{/movies/{id}/delete(id=${movie.id})}"
+            <form sec:authorize="hasRole('ADMIN')" th:action="@{/movies/{id}/delete(id=${movie.id})}"
                   method="post"
                   style="display:inline;"
                   onsubmit="return handleDelete()">

@@ -1,6 +1,5 @@
 package com.movie.dea.dto;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -43,7 +42,7 @@ public class MovieForm {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

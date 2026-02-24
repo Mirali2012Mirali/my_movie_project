@@ -7,6 +7,7 @@ import java.util.List;
 @Entity
 @Table(name = "directors")
 public class Director {
+    public String getName;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

@@ -1,5 +1,6 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:th="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Movies</title>
 </head>
@@ -223,7 +224,7 @@
         <td th:text="${movie.duration}"></td>
 
         <td>
-            <a th:href="@{/movies/{id}/edit(id=${movie.id})}">Edit</a>
+            <a sec:autorize="hasRole('ADMIN')" th:href="@{/movies/{id}/edit(id=${movie.id})}">Edit</a>
 
             <form th:action="@{/movies/{id}/delete(id=${movie.id})}"
                   method="post"

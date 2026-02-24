@@ -1,7 +1,5 @@
 package com.movie.dea.dto;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -27,11 +25,13 @@ public class MovieDTO {
 
     private String directorName;
 
+    private String directorId;
+
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -81,5 +81,13 @@ public class MovieDTO {
 
     public void setDirectorName(String directorName) {
         this.directorName = directorName;
+    }
+
+    public String getDirectorId() {
+        return directorId;
+    }
+
+    public void setDirectorId(String directorId) {
+        this.directorId = directorId;
     }
 }

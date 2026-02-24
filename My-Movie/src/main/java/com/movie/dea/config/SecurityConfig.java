@@ -11,17 +11,25 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.authorizeHttpRequests(auth -> auth.requestMatchers(
-                "/login", "/css/**", "/js/**"
-        ).permitAll().requestMatchers("/movies/new", "/movies/*/delete").hasRole("ADMIN")
+        http
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers("/login", "/css/**", "/js/**")
+
+                        .permitAll()
+                        .requestMatchers("/movies/new", "/movies/*/delete")
+                        .hasRole("ADMIN")
+
                 .anyRequest().authenticated())
+
                 .formLogin(form -> form
+
                         .loginPage("/login")
                         .defaultSuccessUrl("/movies", true)
+                        .failureUrl("/login?error")
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/movies/login?logout")
+                        .logoutSuccessUrl("/login?logout")
                 );
         return http.build();
     }

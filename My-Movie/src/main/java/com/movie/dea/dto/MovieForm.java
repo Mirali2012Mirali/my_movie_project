@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class MovieForm {
 
+    public Double getRating;
     private Integer id;
 
     @NotBlank(message = "Title is required!")
@@ -42,7 +43,7 @@ public class MovieForm {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -94,5 +95,11 @@ public class MovieForm {
         this.directorId = director;
     }
 
+    public Double getGetRating() {
+        return getRating;
+    }
 
+    public void setGetRating(Double getRating) {
+        this.getRating = getRating;
+    }
 }

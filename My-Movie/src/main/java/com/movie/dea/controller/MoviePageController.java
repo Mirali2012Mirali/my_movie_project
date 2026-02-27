@@ -1,8 +1,11 @@
 package com.movie.dea.controller;
 
 
+import com.movie.dea.dto.MovieDTO;
 import com.movie.dea.dto.MovieForm;
+import com.movie.dea.entity.Director;
 import com.movie.dea.entity.Movie;
+import com.movie.dea.repository.DirectorRepository;
 import com.movie.dea.service.MovieService;
 import jakarta.validation.Valid;
 import org.jspecify.annotations.Nullable;
@@ -18,11 +21,14 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/movies")
+//@Tag(name="Movies", description = "Movie management API")
 public class MoviePageController {
     private final MovieService movieService;
+    private final DirectorRepository directorRepository;
 
-    public MoviePageController(MovieService movieService) {
+    public MoviePageController(MovieService movieService, DirectorRepository directorRepository) {
         this.movieService = movieService;
+        this.directorRepository = directorRepository;
     }
 
     @GetMapping
@@ -49,7 +55,7 @@ public class MoviePageController {
                 ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 
-        Page<Movie> movies = movieService.searchPaginated(
+        Page<MovieDTO> movies = movieService.searchPaginated(
                 title,
                 genre,
                 page,
@@ -89,23 +95,44 @@ public class MoviePageController {
 
     @GetMapping("/new")
     public String form(Model model) {
-        model.addAttribute("movie", new Movie());
+        model.addAttribute("movieForm", new MovieForm());
+        model.addAttribute("directors", directorRepository.findAll());
         return "movies/new";
     }
 
     @PostMapping
-    public String save(@Valid @ModelAttribute Movie movie, BindingResult bindingResult) {
+    public String save(@Valid @ModelAttribute("movieForm") MovieForm form, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "movies/form";
+            return form.getId() == null ? "movies/new" : "movies/edit";
         }
 
+        Movie movie;
+
+        if (form.getId()
+                == null) {
+            movie = new Movie();
+        }
+        else {
+            movie = movieService.getMovie(form.getId());
+        }
+
+        movie.setTitle(form.getTitle());
+        movie.setGenre(form.getGenre()) ;
+        movie.setRating (form.getRating());
+        movie.setDuration (form.getDuration()) ;
+        movie.setReleaseDate(form.getReleaseDate()) ;
+        Director director = directorRepository.findById(form.getDirectorId())
+                .orElseThrow(null);
+
+        movie.setDirector(director);
 
         movieService.createMovie(movie);
         return "redirect:/movies";
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
+
         Movie movie = movieService.getMovie(id);
         MovieForm form = new MovieForm();
         movie.setId(form.getId());
@@ -114,11 +141,12 @@ public class MoviePageController {
         movie.setRating(form.getRating());
         movie.setDuration(form.getDuration());
         movie.setReleaseDate(form.getReleaseDate());
+
         model.addAttribute("movieForm", form);
         return "movies/edit";
     }
 
-    @PostMapping("/{id}/delete")
+    @PostMapping("/delete/{id}")
     public String delete(
             @PathVariable Integer id,
             RedirectAttributes redirectAttributes) {

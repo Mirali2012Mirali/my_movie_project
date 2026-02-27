@@ -25,13 +25,13 @@ public class MovieDTO {
 
     private String directorName;
 
-    private String directorId;
+    private Integer directorId;
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -83,11 +83,11 @@ public class MovieDTO {
         this.directorName = directorName;
     }
 
-    public String getDirectorId() {
+    public Integer getDirectorId() {
         return directorId;
     }
 
-    public void setDirectorId(String directorId) {
+    public void setDirectorId(Integer directorId) {
         this.directorId = directorId;
     }
 }

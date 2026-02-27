@@ -1,11 +1,24 @@
 package com.movie.dea.controller;
 
+import com.movie.dea.dto.RegisterForm;
+import com.movie.dea.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AuthController {
+
+    private final UserService userService;
+
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/login")
     public String loginPage(
@@ -13,5 +26,23 @@ public class AuthController {
             @RequestParam(required = false) String logout
     ) {
         return "security/login";
+    }
+
+    @GetMapping("/register")
+    public String registerPage(Model model) {
+        model.addAttribute("form", new RegisterForm());
+        return "security/register";
+    }
+
+
+    @PostMapping("/register")
+    public String register(@Valid @ModelAttribute("form") RegisterForm form,
+                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "security/register";
+        }
+
+        userService.register(form);
+        return "redirect:/login";
     }
 }

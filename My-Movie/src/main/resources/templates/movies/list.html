@@ -223,11 +223,11 @@
         <td th:text="${movie.rating}"></td>
         <td th:text="${movie.releaseDate}"></td>
         <td th:text="${movie.duration}"></td>
-
+        <td th:text="${movie.directorName}"></td>
         <td>
-            <a sec:authorize="hasRole('ADMIN')" th:href="@{/movies/{id}/edit(id=${movie.id})}">Edit</a>
+            <a th:href="@{/movies/edit/{id}(id=${movie.id})}">Edit</a>
 
-            <form sec:authorize="hasRole('ADMIN')" th:action="@{/movies/{id}/delete(id=${movie.id})}"
+            <form th:action="@{/movies/delete/{id}(id=${movie.id})}"
                   method="post"
                   style="display:inline;"
                   onsubmit="return handleDelete()">

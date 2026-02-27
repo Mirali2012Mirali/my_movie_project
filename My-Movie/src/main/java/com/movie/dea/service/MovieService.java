@@ -1,6 +1,7 @@
 package com.movie.dea.service;
 
 
+import com.movie.dea.dto.MovieDTO;
 import com.movie.dea.dto.MovieForm;
 import com.movie.dea.entity.Director;
 import com.movie.dea.entity.Movie;
@@ -83,7 +84,7 @@ public class MovieService {
         movieRepository.save(movie);
     }
 
-    public Page<Movie> searchPaginated(
+    public Page<MovieDTO> searchPaginated(
             String title,
             String genre,
             int page,

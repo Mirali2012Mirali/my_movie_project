@@ -12,14 +12,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
-                .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/login", "/css/**", "/js/**")
-
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**")
                         .permitAll()
-                        .requestMatchers("/movies/new", "/movies/*/delete")
+                        .requestMatchers("/login", "/register", "/css/**", "/js/**")
+                        .permitAll()
+                        .requestMatchers("/movies/new", "/movies/edit/**", "/movies/delete/**")
                         .hasRole("ADMIN")
-
-                .anyRequest().authenticated())
+                        .requestMatchers("/movies/**")
+                        .hasAnyRole("USER", "ADMIN")
+                        .anyRequest().authenticated())
 
                 .formLogin(form -> form
 

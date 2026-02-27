@@ -30,6 +30,8 @@ public class SecurityConfig {
                         .failureUrl("/login?error")
                         .permitAll()
                 )
+                .exceptionHandling(ex ->
+                        ex.accessDeniedPage("/access-denied"))
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")
                 );

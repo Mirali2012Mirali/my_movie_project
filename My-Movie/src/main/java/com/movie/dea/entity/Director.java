@@ -53,4 +53,12 @@ public class Director {
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
     }
+
+    public String getGetName() {
+        return getName;
+    }
+
+    public void setGetName(String getName) {
+        this.getName = getName;
+    }
 }

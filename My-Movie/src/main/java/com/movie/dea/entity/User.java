@@ -21,7 +21,7 @@ public class User {
 
         @Enumerated
         @Column(nullable = false)
-        private Role role;
+        private String role;
 
         public Integer getId() {
         return id;
@@ -31,13 +31,6 @@ public class User {
             this.id = id;
         }
 
-    public Role getRole() {
-        return role;
-    }
-
-        public void setRole(Role role) {
-            this.role = role;
-        }
 
     public String getUsername() {
         return username;
@@ -62,5 +55,14 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
 }
 

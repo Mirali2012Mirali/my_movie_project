@@ -214,7 +214,8 @@
         <th>Rating</th>
         <th>Release Date</th>
         <th>Duration</th>
-        <th>Actions</th>
+        <th>Directors</th>
+        <th th:if="${isAdmin}">Actions</th>
     </tr>
 
     <tr th:each="movie : ${movies}">
@@ -225,7 +226,7 @@
         <td th:text="${movie.duration}"></td>
         <td th:text="${movie.directorName}"></td>
         <td>
-            <a th:href="@{/movies/edit/{id}(id=${movie.id})}">Edit</a>
+            <a th:if="${isAdmin}" th:href="@{/movies/edit/{id}(id=${movie.id})}">Edit</a>
 
             <form th:action="@{/movies/delete/{id}(id=${movie.id})}"
                   method="post"

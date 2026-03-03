@@ -8,6 +8,7 @@ import com.movie.dea.entity.Movie;
 import com.movie.dea.repository.DirectorRepository;
 import com.movie.dea.service.MovieService;
 import jakarta.validation.Valid;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -39,8 +40,14 @@ public class MoviePageController {
             @RequestParam(defaultValue = "5") int size,
             @RequestParam(defaultValue = "title") String sortBy,
             @RequestParam(defaultValue = "asc") String direction,
-            Model model
+            Model model,
+            Authentication authentication
     ) {
+
+        boolean isAdmin = authentication.getAuthorities()
+                .stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
 
         if (page < 0) {
             page=0;
@@ -90,6 +97,8 @@ public class MoviePageController {
         model.addAttribute("genre", genre);
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("direction", direction);
+
+        model.addAttribute("isAdmin", isAdmin);
         return "movies/list";
     }
 

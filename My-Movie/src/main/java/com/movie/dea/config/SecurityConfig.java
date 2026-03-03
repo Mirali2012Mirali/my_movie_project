@@ -27,6 +27,7 @@ public class SecurityConfig {
 
                         .loginPage("/login")
                         .defaultSuccessUrl("/movies", true)
+                        .permitAll()
                         .failureUrl("/login?error")
                         .permitAll()
                 )

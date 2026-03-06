@@ -2,8 +2,12 @@ package com.movie.dea.entity;
 
 import jakarta.persistence.*;
 
+import javax.management.relation.Role;
+
 @Entity
 @Table(name = "users")
+
+
 public class User {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,9 +20,6 @@ public class User {
 //        private String role;
         @Column(nullable = false, unique = true, length = 15)
         private String phone;
-
-        @Column(nullable = false)
-        private String role;
 
         public Integer getId() {
         return id;
@@ -52,14 +53,5 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
 }
 

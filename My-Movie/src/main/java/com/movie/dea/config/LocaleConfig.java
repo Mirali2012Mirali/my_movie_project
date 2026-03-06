@@ -28,16 +28,8 @@ public class LocaleConfig implements WebMvcConfigurer {
         return interceptor;
     }
 
-    @Bean
-    public LocaleChangeInterceptor localechangeinterceptor() {
-        LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
-        interceptor.setParamName("lang");
-        return interceptor;
-    }
-
     @Override
     public void addInterceptors (InterceptorRegistry registry) {
     registry.addInterceptor(localeChangeInterceptor());
-    registry.addInterceptor(localechangeinterceptor());
     }
 }

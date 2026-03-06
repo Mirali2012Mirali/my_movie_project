@@ -10,32 +10,32 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class MovieForm {
 
-    public Double getRating;
     private Integer id;
 
-    @NotBlank(message = "Title is required!")
-    @Size(min = 5, max = 100, message = "Title must be 5-100 chars.")
+    @NotBlank(message = "{error.notblank}")
+    @Size(min = 5, max = 100, message = "{error.size}}")
     private String title;
     @NotBlank(message = "Genre is required!")
-    @Size(min = 5, max = 100, message = "Genre must be 5-100 chars.")
+    @Size(min = 5, max = 100, message = "{error.size}}")
     private String genre;
 
 
-    @NotNull(message = "don't leave empty")
+    @NotBlank(message = "{error.notblank}")
     private LocalDate releaseDate;
 
-    @NotNull(message = "don't leave empty")
+    @NotBlank(message = "{error.notblank}")
     @DecimalMin(value = "1.0", message = "Rating must be at least 0")
     @DecimalMax(value = "10.0", message = "Rating must be at most 10")
 
     private Double rating;
 
-    @NotBlank(message = "Duration is required!")
-    @Size(min = 2, max = 3, message = "Genre must be 5-100 chars")
+    @NotBlank(message = "{error.notblank}")
+    @Size(min = 2, max = 3, message = "{error.size}}")
     private String duration;
-
+    @NotBlank(message = "{error.notblank}")
     private Integer directorId;
 
 
@@ -93,13 +93,5 @@ public class MovieForm {
 
     public void setDirectorId(Integer director) {
         this.directorId = director;
-    }
-
-    public Double getGetRating() {
-        return getRating;
-    }
-
-    public void setGetRating(Double getRating) {
-        this.getRating = getRating;
     }
 }

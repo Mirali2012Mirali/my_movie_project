@@ -1,14 +1,7 @@
 package com.movie.dea.dto;
 
-import lombok.*;
-
 import java.time.LocalDate;
 
-@Data
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public class MovieDTO {
 
     private Integer id;

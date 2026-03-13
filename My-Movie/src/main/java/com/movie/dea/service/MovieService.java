@@ -56,6 +56,7 @@ public class MovieService {
     }
 
     public Movie createMovie(Movie newMovie) {
+//        System.out.println("method called: createMovie()");
         return movieRepository.save(newMovie);
     }
 

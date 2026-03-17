@@ -1,6 +1,7 @@
 package com.movie.dea.controller;
 
 
+import com.movie.dea.entity.Director;
 import com.movie.dea.entity.Movie;
 import com.movie.dea.service.MovieService;
 import org.springframework.data.domain.Page;
@@ -57,6 +58,11 @@ public class MovieController {
     @GetMapping("/date/{releaseDate}")
     public List<Movie> getMovieByDate(@PathVariable LocalDate releaseDate) {
         return movieService.getAllMovieByReleaseDate(releaseDate);
+    }
+
+    @GetMapping("/directors/{id}")
+    public Director getDirectorById(@PathVariable Integer id) {
+        return movieService.getDirector(id);
     }
 
     @PostMapping("/add")

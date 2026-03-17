@@ -5,6 +5,7 @@ import com.movie.dea.dto.MovieDTO;
 import com.movie.dea.dto.MovieForm;
 import com.movie.dea.entity.Director;
 import com.movie.dea.entity.Movie;
+import com.movie.dea.exception.DirectorNotFoundException;
 import com.movie.dea.exception.MovieNotFoundException;
 import com.movie.dea.mapper.MovieMapper;
 import com.movie.dea.repository.DirectorRepository;
@@ -62,12 +63,12 @@ public class MovieService {
 
     public Movie getMovie(Integer id) {
         return movieRepository.findById(id)
-                .orElseThrow(() -> new MovieNotFoundException("No such a movie in db:  " + id));
+                .orElseThrow(() -> new MovieNotFoundException("No such a movie in db with the following id:  " + id));
     }
 
     public Director getDirector(Integer id) {
         return directorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No director with id:" + id));
+                .orElseThrow(() -> new DirectorNotFoundException("No Director with id:" + id));
     }
 
     public void saveForm(MovieForm movieForm) {
@@ -115,7 +116,7 @@ public class MovieService {
                     existing.setReleaseDate(updatedMovie.getReleaseDate());
                     return movieRepository.save(existing);
                 })
-                .orElseThrow(() -> new RuntimeException("No such a movie with following ID: " + id));
+                .orElseThrow(() -> new MovieNotFoundException("No such a movie with following ID: " + id));
     }
 
     public void deleteById(Integer id) {

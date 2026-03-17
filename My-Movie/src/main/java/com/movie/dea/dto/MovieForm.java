@@ -1,15 +1,7 @@
 package com.movie.dea.dto;
 
 import jakarta.validation.constraints.*;
-import lombok.*;
-
 import java.time.LocalDate;
-
-@Data
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 
 public class MovieForm {
 
@@ -22,20 +14,19 @@ public class MovieForm {
     @Size(min = 5, max = 100, message = "{error.size}}")
     private String genre;
 
-
-    @NotBlank(message = "{error.notblank}")
+    @NotNull(message = "Release date must be full")
     private LocalDate releaseDate;
 
-    @NotBlank(message = "{error.notblank}")
+    @NotNull(message = "Rating should not be empty")
     @DecimalMin(value = "1.0", message = "Rating must be at least 0")
     @DecimalMax(value = "10.0", message = "Rating must be at most 10")
-
     private Double rating;
 
-    @NotBlank(message = "{error.notblank}")
+    @NotNull(message = "Duration should not be empty")
     @Size(min = 2, max = 3, message = "{error.size}}")
     private String duration;
-    @NotBlank(message = "{error.notblank}")
+
+    @NotNull(message = "Director Required!")
     private Integer directorId;
 
 

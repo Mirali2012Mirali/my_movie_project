@@ -8,41 +8,5 @@
 <h2>Error</h2>
 <p th:text="${message}"></p>
 <a href="/movies">Back to Movies</a>
-
-<style>
-    body::before {
-    content: "";
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15), transparent 40%),
-                radial-gradient(circle at 80% 30%, rgba(255,255,255,0.12), transparent 40%),
-                radial-gradient(circle at 40% 80%, rgba(255,255,255,0.12), transparent 40%);
-    animation: moveBackground 18s linear infinite;
-    z-index: -1;
-}
-
-@keyframes moveBackground {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-a {
-    color: #ffffff;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-a:hover {
-    color: #00c6ff;
-    text-shadow: 0 0 10px rgba(0,198,255,0.8);
-}
-</style>
 </body>
 </html>

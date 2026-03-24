@@ -1,82 +1,43 @@
 package com.movie.dea.controller;
 
 
-import com.movie.dea.entity.Director;
+import com.movie.dea.Interfaces.MovieService;
+import com.movie.dea.dto.MovieDTO;
 import com.movie.dea.entity.Movie;
-import com.movie.dea.service.MovieService;
-import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Repository;
+import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
+
 
 @RestController
 @RequestMapping("/api/movies")
+@Tag(name = "Movie management APIs ")
 public class MovieController {
-    private final MovieService movieService;
+    private final com.movie.dea.controller.MovieService movieService;
 
     public MovieController(MovieService movieService) {
         this.movieService = movieService;
     }
 
-//    @GetMapping("/pagination")
-//    public Page<Movie> getPagination(
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "5") int size
-//    ) {
-//        return movieService.getMoviesByPage(page, size);
-//    }
 
-
-    @GetMapping("/all")
-    public List<Movie> getMovies(){
-        return movieService.getAllMovie();
-    }
-
-    @GetMapping("/title/{title}")
-    public List<Movie> getMoviesByTitle(@PathVariable String title) {
-        return movieService.getAllMovieByTitle(title);
-    }
-
-    @GetMapping("/genre/{genre}")
-    public List<Movie> getMoviesByGenre(@PathVariable String genre) {
-        return movieService.getAllMovieByTitle(genre);
-    }
-
-    @GetMapping("/rating/{minRating}")
-    public List<Movie> getMoviesByMinRating(@PathVariable Double minRating) {
-        return movieService.getAllMovieByMinRating(minRating);
+    @GetMapping
+    @Operation(summary = "Get all movies")
+    public List<Movie> getMovie() {
+    return movieService.getAllMovie();
     }
 
     @GetMapping("/{id}")
-    public Movie getMovieById(@PathVariable Integer id) {
+    @Operation(summary = "Get movie by ID")
+    public Movie getMovie(@PathVariable Integer id) {
         return movieService.getMovie(id);
     }
 
-    @GetMapping("/date/{releaseDate}")
-    public List<Movie> getMovieByDate(@PathVariable LocalDate releaseDate) {
-        return movieService.getAllMovieByReleaseDate(releaseDate);
-    }
-
-    @GetMapping("/directors/{id}")
-    public Director getDirectorById(@PathVariable Integer id) {
-        return movieService.getDirector(id);
-    }
-
-    @PostMapping("/add")
-    public Movie createMovie(@PathVariable Movie movie) {
+    @PostMapping
+    @Operation(summary = "Create Movie")
+    public Movie createMovie(@RequestBody Movie movie) {
         return movieService.createMovie(movie);
     }
 
-    @PutMapping("/update/{id}")
-    public Movie updateMovie(@PathVariable Integer id, @RequestBody Movie movie) {
-        return movieService.updateMovie(id, movie);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public void deleteMovie(@PathVariable Integer id) {
-        movieService.deleteById(id);
-    }
 }
+

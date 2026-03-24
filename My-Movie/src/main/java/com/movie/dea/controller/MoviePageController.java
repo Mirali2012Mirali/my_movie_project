@@ -6,10 +6,9 @@ import com.movie.dea.dto.MovieForm;
 import com.movie.dea.entity.Director;
 import com.movie.dea.entity.Movie;
 import com.movie.dea.repository.DirectorRepository;
-import com.movie.dea.service.MovieService;
+import com.movie.dea.Interfaces.MovieService;
 import jakarta.validation.Valid;
 
-import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -18,8 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/movies")

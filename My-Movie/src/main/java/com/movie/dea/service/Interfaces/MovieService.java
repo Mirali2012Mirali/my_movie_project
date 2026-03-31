@@ -6,6 +6,7 @@ import com.movie.dea.dto.MovieForm;
 import com.movie.dea.entity.Director;
 import com.movie.dea.entity.Movie;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -34,9 +35,19 @@ public interface MovieService {
 
     Page<MovieDTO> searchPaginated(int page, int size);
 
+    Page<MovieDTO> searchPaginated(String title, String genre, int page, int size, Sort sort);
+
     Movie updateMovie(Integer id, Movie updatedMovie);
 
     void deleteById(Integer id);
 
-        List<Movie> search(String title,String genre);
+    List<Movie> search(String title,String genre);
+
+    Page<MovieDTO> getMoviesByPage(int page, int size);
+
+    List<Movie> getAllMoviesByRating(Double minRating);
+
+    List<Movie> getAllMoviesById(Integer id);
+
+    List<Movie> getAllMoviesByDate(LocalDate releaseDate);
 }

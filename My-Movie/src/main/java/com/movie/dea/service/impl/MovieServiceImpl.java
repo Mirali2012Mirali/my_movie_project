@@ -2,6 +2,7 @@ package com.movie.dea.Impl;
 
 import com.movie.dea.dto.MovieDTO;
 import com.movie.dea.dto.MovieForm;
+
 import com.movie.dea.entity.Director;
 import com.movie.dea.entity.Movie;
 import com.movie.dea.exception.DirectorNotFoundException;
@@ -33,7 +34,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> getAllMovie() {
-            return movieRepository.findAll();
+        return movieRepository.findAll();
     }
 
     @Override
@@ -77,7 +78,6 @@ public class MovieServiceImpl implements MovieService {
     public void saveForm(MovieForm movieForm) {
         Movie movie;
 
-
         if (movieForm.getId() == null) {
             movie = new Movie();
         } else {
@@ -90,12 +90,16 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public Page<MovieDTO> searchPaginated(int page, int size) {
+        return null;
+    }
+
+    @Override
     public Page<MovieDTO> searchPaginated(String title, String genre, int page, int size, Sort sort) {
         Pageable pageable = PageRequest.of(page, size, sort);
 
         String safeTitle = (title == null) ? "" : title;
         String safeGenre = (genre == null) ? "" : genre;
-
 
         Page<Movie> moviePage =
                 movieRepository.findByTitleContainingIgnoreCaseAndGenreContainingIgnoreCase
@@ -139,5 +143,25 @@ public class MovieServiceImpl implements MovieService {
         }
 
         return movieRepository.findAll();
+    }
+
+    @Override
+    public Page<MovieDTO> getMoviesByPage(int page, int size) {
+        return null;
+    }
+
+    @Override
+    public List<Movie> getAllMoviesByRating(Double minRating) {
+        return List.of();
+    }
+
+    @Override
+    public List<Movie> getAllMoviesById(Integer id) {
+        return List.of();
+    }
+
+    @Override
+    public List<Movie> getAllMoviesByDate(LocalDate releaseDate) {
+        return List.of();
     }
 }

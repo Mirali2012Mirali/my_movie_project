@@ -3,6 +3,7 @@ package com.movie.dea.service;
 import com.movie.dea.dto.RegisterForm;
 import com.movie.dea.entity.User;
 import com.movie.dea.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,13 +25,14 @@ public class UserService {
 
         User user = new User();
 
-        user.setUsername(form.getUsername());
-        user.setPassword(passwordEncoder.encode(form.getPassword()));
+
         if (!form.getPassword().equals(form.getConfirmPassword())) {
             throw new RuntimeException("Password do not match");
         }
+            user.setUsername(form.getUsername());
+            user.setPassword(passwordEncoder.encode(form.getPassword()));
         user.setRole("ROLE_USER");
 
-        userRepository.save(user);
+            userRepository.save(user);
+        }
     }
-}

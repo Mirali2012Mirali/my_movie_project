@@ -8,7 +8,6 @@ import com.movie.dea.entity.Movie;
 import com.movie.dea.repository.DirectorRepository;
 import com.movie.dea.Interfaces.MovieService;
 import jakarta.validation.Valid;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -50,11 +49,6 @@ public class MoviePageController {
         if (page < 0) {
             page=0;
         }
-//
-//        title = (title == null) ? "" : title;
-//        genre = (genre == null) ? "" : genre;
-//        sortBy = (sortBy == null) ? "" : sortBy;
-//        direction = (direction == null) ? "" : direction;
 
         Sort sort = direction.equalsIgnoreCase("asc")
                 ? Sort.by(sortBy).ascending()
@@ -170,8 +164,7 @@ public class MoviePageController {
             );
 
         }
-            return "redirect:/movies";
-        }
+        return "redirect:/movies";
+    }
 
 }
-

@@ -16,10 +16,11 @@ public class User {
         private String username;
         @Column(nullable = false)
         private String password;
-//        @Column(nullable = false)
-//        private String role;
+        @Column(nullable = false)
+        private String role;
         @Column(nullable = false, unique = true, length = 15)
         private String phone;
+
 
         public Integer getId() {
         return id;
@@ -52,6 +53,14 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getRole() {
+            return role;
+    }
+
+    public void setRole(String role) {
+            this.role = role;
     }
 }
 

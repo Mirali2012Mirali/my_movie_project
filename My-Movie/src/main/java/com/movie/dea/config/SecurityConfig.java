@@ -13,11 +13,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**")
+                        .requestMatchers("/swagger-ui/*", "/v3/api-docs/*")
                         .permitAll()
-                        .requestMatchers("/login", "/register", "/css/**", "/js/**")
+                        .requestMatchers("/login", "/register", "/css/*", "/js/*")
                         .permitAll()
-                        .requestMatchers("/movies/new", "/movies/edit/**", "/movies/delete/**")
+                        .requestMatchers("/movies/new", "/movies/edit/*", "/movies/delete/*")
                         .hasRole("ADMIN")
                         .requestMatchers("/movies/**")
                         .hasAnyRole("USER", "ADMIN")
@@ -26,10 +26,10 @@ public class SecurityConfig {
                 .formLogin(form -> form
 
 //                        .loginPage("/login")
-                        .defaultSuccessUrl("/movies", true)
-                        .permitAll()
-                        .failureUrl("/login?error")
-                        .permitAll()
+                                .defaultSuccessUrl("/movies", true)
+                                .permitAll()
+                                .failureUrl("/login?error")
+                                .permitAll()
                 )
                 .exceptionHandling(ex ->
                         ex.accessDeniedPage("/access-denied"))

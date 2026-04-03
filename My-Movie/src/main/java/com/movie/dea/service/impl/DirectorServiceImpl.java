@@ -31,7 +31,7 @@ public class DirectorServiceImpl implements DirectorService {
     @Override
     public Director getDirectorById(Integer id) {
         return directorRepository.findById(id)
-                .orElseThrow(() -> new DirectorNotFoundException("Director not found with id: " + id);
+                .orElseThrow(() -> new DirectorNotFoundException("Director not found with ID: " + id));
     }
 
     @Override
@@ -63,7 +63,7 @@ public class DirectorServiceImpl implements DirectorService {
     }
 
     private DirectorDTO toDTO(Director director) {
-        int movieCount = director.getMovies() == null ? director.getMovies().size();
+        int movieCount = director.getMovies() == null ? 1 : director.getMovies().size();
         return new DirectorDTO(director.getId(), director.getName(), movieCount);
     }
 }

@@ -3,66 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1d2671, #c33764);
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+        .card {
+            width: 380px;
+            background: rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(14px);
+            border-radius: 14px;
+            padding: 26px;
+        }
+        .langs { margin-bottom: 12px; }
+        .langs a, .actions a {
+            color: #fff;
+            margin-right: 10px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        label { display:block; margin-top: 10px; font-weight: 600; }
+        input, button {
+            width: 100%;
+            margin-top: 6px;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 12px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 16px;
+            background: #0072ff;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .error { color: #ffd6d6; font-size: 13px; margin-top: 4px; }
+        .actions { margin-top: 12px; }
+    </style>
 </head>
 <body>
-    <h2>Register New User</h2>
+<div class="card">
+    <div class="langs">
+        <a th:href="@{/register(lang='en')}">EN</a>
+        <a th:href="@{/register(lang='ru')}">RU</a>
+        <a th:href="@{/register(lang='az')}">AZ</a>
+    </div>
+
+    <h2 th:text="#{page.register}">Register New User</h2>
     <form th:action="@{/register}" th:object="${form}" method="post">
-    <div>
-        <label>Username</label>
+        <label th:text="#{field.username}">Username</label>
         <input type="text" th:field="*{username}">
-        <div style="color:red;" th:if="${#fields.hasErrors( 'username' )}" th:errors="*{username}"></div>
-        </div>
-        <div>
-        <label>Password</Label>
+        <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+
+        <label th:text="#{field.password}">Password</label>
         <input type="password" th:field="*{password}">
-        <div style="color:red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-        </div>
-        <label>Confirm Password</Label>
+        <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+
+        <label th:text="#{field.confirmPassword}">Confirm Password</label>
         <input type="password" th:field="*{confirmPassword}">
-        <div style="color:red;" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
-        </div>
+        <div class="error" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
 
         <button type="submit">Create Account</button>
     </form>
-<p>
-    <a th:href="@{/login}">Back to LogIn</a>
-</p>
-
-
-<style>
-    body::before {
-    content: "";
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15), transparent 40%),
-                radial-gradient(circle at 80% 30%, rgba(255,255,255,0.12), transparent 40%),
-                radial-gradient(circle at 40% 80%, rgba(255,255,255,0.12), transparent 40%);
-    animation: moveBackground 18s linear infinite;
-    z-index: -1;
-}
-
-@keyframes moveBackground {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-a {
-    color: #ffffff;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-a:hover {
-    color: #00c6ff;
-    text-shadow: 0 0 10px rgba(0,198,255,0.8);
-}
-</style>
+    <div class="actions">
+        <a th:href="@{/login}" th:text="#{link.backToLogin}">Back to Login</a>
+    </div>
+</div>
 </body>
 </html>

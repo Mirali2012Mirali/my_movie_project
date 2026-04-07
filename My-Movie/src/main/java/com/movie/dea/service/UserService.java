@@ -3,9 +3,10 @@ package com.movie.dea.service;
 import com.movie.dea.dto.RegisterForm;
 import com.movie.dea.entity.User;
 import com.movie.dea.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -31,7 +32,8 @@ public class UserService {
         }
             user.setUsername(form.getUsername());
             user.setPassword(passwordEncoder.encode(form.getPassword()));
-        user.setRole("ROLE_USER");
+            user.setRole("ROLE_USER");
+            user.setPhone("+" + UUID.randomUUID().toString().replace("-", "").substring(0, 14));
 
             userRepository.save(user);
         }

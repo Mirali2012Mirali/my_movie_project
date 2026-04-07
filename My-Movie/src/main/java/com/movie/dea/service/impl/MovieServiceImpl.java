@@ -84,7 +84,13 @@ public class MovieServiceImpl implements MovieService {
             movie = getMovie(movieForm.getId());
         }
 
-        Director director = getDirector(movieForm.getDirectorId());
+        String directorName = movieForm.getDirectorName() == null ? "" : movieForm.getDirectorName().trim();
+        Director director = directorRepository.findByNameIgnoreCase(directorName)
+                .orElseGet(() -> {
+                    Director newDirector = new Director();
+                    newDirector.setName(directorName);
+                    return directorRepository.save(newDirector);
+                });
         movieMapper.updatedEntityForm(movieForm, movie, director);
         movieRepository.save(movie);
     }

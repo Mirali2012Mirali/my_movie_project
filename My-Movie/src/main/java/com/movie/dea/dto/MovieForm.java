@@ -8,10 +8,10 @@ public class MovieForm {
     private Integer id;
 
     @NotBlank(message = "{error.notblank}")
-    @Size(min = 5, max = 100, message = "{error.size}}")
+    @Size(min = 2, max = 100, message = "{error.size}")
     private String title;
     @NotBlank(message = "Genre is required!")
-    @Size(min = 5, max = 100, message = "{error.size}}")
+    @Size(min = 2, max = 100, message = "{error.size}")
     private String genre;
 
     @NotNull(message = "Release date must be full")
@@ -23,11 +23,12 @@ public class MovieForm {
     private Double rating;
 
     @NotNull(message = "Duration should not be empty")
-    @Size(min = 2, max = 3, message = "{error.size}}")
+    @Size(min = 1, max = 10, message = "{error.size}")
     private String duration;
 
-    @NotNull(message = "Director Required!")
-    private Integer directorId;
+    @NotBlank(message = "Director Required!")
+    @Size(min = 2, max = 100, message = "{error.size}")
+    private String directorName;
 
 
     public Integer getId() {
@@ -78,11 +79,11 @@ public class MovieForm {
         this.duration = duration;
     }
 
-    public Integer getDirectorId() {
-        return directorId;
+    public String getDirectorName() {
+        return directorName;
     }
 
-    public void setDirectorId(Integer director) {
-        this.directorId = director;
+    public void setDirectorName(String directorName) {
+        this.directorName = directorName;
     }
 }

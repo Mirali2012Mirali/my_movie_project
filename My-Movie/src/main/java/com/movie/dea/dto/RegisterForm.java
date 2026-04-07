@@ -13,11 +13,7 @@ public class RegisterForm {
     )
     private String username;
     @NotBlank
-    @Size(min = 8, max = 80)
-    @Pattern(
-            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*?]).{8,}$",
-            message = "Password should include upper, lower, digit and special char"
-    )
+    @Size(min = 4, max = 80, message = "Password must be between 4 and 80 characters")
     private String password;
 
     @NotBlank(message = "Confirm Password!")

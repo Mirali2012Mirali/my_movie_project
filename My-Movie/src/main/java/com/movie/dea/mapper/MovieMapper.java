@@ -20,8 +20,8 @@ public class MovieMapper {
         dto.setDuration(movie.getDuration());
 
         if (movie.getDirector() != null) {
-            dto.setDirectorId(movie.getId());
-            dto.setDirectorName(movie.getDirector().getName);
+            dto.setDirectorId(movie.getDirector().getId());
+            dto.setDirectorName(movie.getDirector().getName());
         }
         return dto;
     }
@@ -38,7 +38,7 @@ public class MovieMapper {
         form.setDuration(movie.getDuration());
 
         if (movie.getDirector() != null) {
-            form.setDirectorId(movie.getDirector().getId());
+            form.setDirectorName(movie.getDirector().getName());
         }
         return form;
     }

@@ -17,6 +17,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/movies")
 //@Tag(name="Movies", description = "Movie management API")
@@ -97,13 +99,14 @@ public class MoviePageController {
     @GetMapping("/new")
     public String form(Model model) {
         model.addAttribute("movieForm", new MovieForm());
-        model.addAttribute("directors", directorRepository.findAll());
+        addDirectorSuggestions(model);
         return "movies/new";
     }
 
     @PostMapping
-    public String save(@Valid @ModelAttribute("movieForm") MovieForm form, BindingResult bindingResult) {
+    public String save(@Valid @ModelAttribute("movieForm") MovieForm form, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            addDirectorSuggestions(model);
             return form.getId() == null ? "movies/new" : "movies/edit";
         }
 
@@ -122,8 +125,13 @@ public class MoviePageController {
         movie.setRating (form.getRating());
         movie.setDuration (form.getDuration()) ;
         movie.setReleaseDate(form.getReleaseDate()) ;
-        Director director = directorRepository.findById(form.getDirectorId())
-                .orElseThrow(null);
+        String directorName = form.getDirectorName() == null ? "" : form.getDirectorName().trim();
+        Director director = directorRepository.findByNameIgnoreCase(directorName)
+                .orElseGet(() -> {
+                    Director newDirector = new Director();
+                    newDirector.setName(directorName);
+                    return directorRepository.save(newDirector);
+                });
 
         movie.setDirector(director);
 
@@ -136,15 +144,29 @@ public class MoviePageController {
 
         Movie movie = movieService.getMovie(id);
         MovieForm form = new MovieForm();
-        movie.setId(form.getId());
-        movie.setTitle(form.getTitle());
-        movie.setGenre(form.getGenre());
-        movie.setRating(form.getRating());
-        movie.setDuration(form.getDuration());
-        movie.setReleaseDate(form.getReleaseDate());
+        form.setId(movie.getId());
+        form.setTitle(movie.getTitle());
+        form.setGenre(movie.getGenre());
+        form.setRating(movie.getRating());
+        form.setDuration(movie.getDuration());
+        form.setReleaseDate(movie.getReleaseDate());
+        if (movie.getDirector() != null) {
+            form.setDirectorName(movie.getDirector().getName());
+        }
 
         model.addAttribute("movieForm", form);
+        addDirectorSuggestions(model);
         return "movies/edit";
+    }
+
+    private void addDirectorSuggestions(Model model) {
+        List<String> directorNames = directorRepository.findAll().stream()
+                .map(Director::getName)
+                .filter(name -> name != null && !name.isBlank())
+                .sorted(String.CASE_INSENSITIVE_ORDER)
+                .distinct()
+                .toList();
+        model.addAttribute("directorNames", directorNames);
     }
 
     @PostMapping("/delete/{id}")

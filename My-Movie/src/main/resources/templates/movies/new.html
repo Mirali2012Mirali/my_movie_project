@@ -2,77 +2,97 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add Movie</title>
+    <title>New Movie</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1d2671, #c33764);
+            font-family: Arial, sans-serif;
+            color: #fff;
+            padding: 20px;
+        }
+        .card {
+            width: 430px;
+            background: rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(14px);
+            border-radius: 14px;
+            padding: 24px;
+        }
+        .langs a, .actions a {
+            color: #fff;
+            margin-right: 10px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .langs { margin-bottom: 12px; }
+        h2 { margin-top: 0; }
+        label { display: block; margin-top: 10px; font-weight: 600; }
+        input, select, button {
+            width: 100%;
+            margin-top: 6px;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 12px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 16px;
+            background: #0072ff;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .error { color: #ffd6d6; font-size: 13px; margin-top: 4px; }
+        .actions { margin-top: 14px; }
+    </style>
 </head>
 <body>
-<h2>New Movie</h2>
-<form th:action="@{/movies}" th:object="${movie}" method="post">
-    Title <input type="text" th:field="*{title}" />
-    <div style=""
-    th:if="${#fields.hasErrors('title')}"
-    th:errors="*{title}">
-    </div> <br>
-
-    Genre <input type="text" th:field="*{genre}" />
-    <div style=""
-         th:if="${#fields.hasErrors('genre')}"
-         th:errors="*{genre}">
-    </div> <br>
-
-    Rating <input type="number" step="0.1" th:field="*{rating}" /> <br>
-    <div style="color:red"
-         th:if="${#fields.hasErrors('rating')}"
-         th:errors="*{rating}">
+<div class="card">
+    <div class="langs">
+        <a th:href="@{/movies/new(lang='en')}">EN</a>
+        <a th:href="@{/movies/new(lang='ru')}">RU</a>
+        <a th:href="@{/movies/new(lang='az')}">AZ</a>
     </div>
 
-    Duration <input type="text" th:field="*{duration}" />
-    <div style="color:red"
-         th:if="${#fields.hasErrors('duration')}"
-         th:errors="*{genre}">
-    </div> <br>
+    <h2 th:text="#{page.movie.new}">New Movie</h2>
+    <form th:action="@{/movies}" th:object="${movieForm}" method="post">
+        <label th:text="#{movie.title}">Title</label>
+        <input type="text" th:field="*{title}">
+        <div class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
 
-    Release Date <input type="date" th:field="*{releaseDate}" /> <br>
+        <label th:text="#{movie.genre}">Genre</label>
+        <input type="text" th:field="*{genre}">
+        <div class="error" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></div>
 
-    <button type="submit">Save</button>
-</form>
+        <label th:text="#{movie.rating}">Rating</label>
+        <input type="number" step="0.1" th:field="*{rating}">
+        <div class="error" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></div>
 
-<a href="/movies">Back</a>
+        <label th:text="#{movie.duration}">Duration</label>
+        <input type="text" th:field="*{duration}">
+        <div class="error" th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></div>
 
+        <label th:text="#{movie.releaseDate}">Release Date</label>
+        <input type="date" th:field="*{releaseDate}">
+        <div class="error" th:if="${#fields.hasErrors('releaseDate')}" th:errors="*{releaseDate}"></div>
 
-<style>
-    body::before {
-    content: "";
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15), transparent 40%),
-                radial-gradient(circle at 80% 30%, rgba(255,255,255,0.12), transparent 40%),
-                radial-gradient(circle at 40% 80%, rgba(255,255,255,0.12), transparent 40%);
-    animation: moveBackground 18s linear infinite;
-    z-index: -1;
-}
+        <label th:text="#{field.director}">Director</label>
+        <input type="text" th:field="*{directorName}" th:placeholder="#{field.chooseDirector}" list="directorOptions">
+        <datalist id="directorOptions">
+            <option th:each="name : ${directorNames}" th:value="${name}"></option>
+        </datalist>
+        <div class="error" th:if="${#fields.hasErrors('directorName')}" th:errors="*{directorName}"></div>
 
-@keyframes moveBackground {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
+        <button type="submit" th:text="#{button.save}">Save</button>
+    </form>
 
-a {
-    color: #ffffff;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-a:hover {
-    color: #00c6ff;
-    text-shadow: 0 0 10px rgba(0,198,255,0.8);
-}
-</style>
+    <div class="actions">
+        <a th:href="@{/movies}" th:text="#{link.back}">Back</a>
+    </div>
+</div>
 </body>
 </html>
